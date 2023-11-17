@@ -9,52 +9,52 @@ import {
 
 export class Offer2Dto {
   @Expose()
-  @Transform(({ value }) => value.campaign_id.toString())
+  @Transform(({ obj }) => obj.Offer.campaign_id.toString())
   @IsNumberString()
   externalOfferId: string;
 
   @Expose()
-  @Transform(({ value }) => value.name)
+  @Transform(({ obj }) => obj.Offer.name)
   @IsString()
   @IsNotEmpty()
   name: string;
 
   @Expose()
-  @Transform(({ value }) => value.description)
+  @Transform(({ obj }) => obj.Offer.description)
   @IsString()
   @IsNotEmpty()
   description: string;
 
   @Expose()
-  @Transform(({ value }) => value.instructions)
+  @Transform(({ obj }) => obj.Offer.instructions)
   @IsString()
   @IsNotEmpty()
   requirements: string;
 
   @Expose()
-  @Transform(({ value }) => value.icon)
+  @Transform(({ obj }) => obj.Offer.icon)
   @IsString()
   @IsNotEmpty()
   thumbnail: string;
 
   @Expose()
-  @Transform(({ value }) => value.tracking_url)
+  @Transform(({ obj }) => obj.Offer.tracking_url)
   @IsString()
   @IsNotEmpty()
   offerUrlTemplate: string;
 
   @Expose()
-  @Transform(({ value }) => (value.OS.web ? 1 : 0))
+  @Transform(({ obj }) => (obj.OS.web ? 1 : 0))
   @IsNumber()
   isDesktop: number;
 
   @Expose()
-  @Transform(({ value }) => (value.OS.ios ? 1 : 0))
+  @Transform(({ obj }) => (obj.OS.ios ? 1 : 0))
   @IsNumber()
   isIos: number;
 
   @Expose()
-  @Transform(({ value }) => (value.OS.android ? 1 : 0))
+  @Transform(({ obj }) => (obj.OS.android ? 1 : 0))
   @IsNumber()
   isAndroid: number;
 

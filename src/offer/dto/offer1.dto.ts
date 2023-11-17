@@ -9,55 +9,55 @@ import {
 
 export class Offer1Dto {
   @Expose()
-  @Transform(({ value }) => value.offer_id)
+  @Transform(({ obj }) => obj.offer_id)
   @IsNumberString()
   externalOfferId: string;
 
   @Expose()
-  @Transform(({ value }) => value.offer_name)
+  @Transform(({ obj }) => obj.offer_name)
   @IsString()
   @IsNotEmpty()
   name: string;
 
   @Expose()
-  @Transform(({ value }) => value.offer_desc)
+  @Transform(({ obj }) => obj.offer_desc)
   @IsString()
   @IsNotEmpty()
   description: string;
 
   @Expose()
-  @Transform(({ value }) => value.call_to_action)
+  @Transform(({ obj }) => obj.call_to_action)
   @IsString()
   @IsNotEmpty()
   requirements: string;
 
   @Expose()
-  @Transform(({ value }) => value.image_url)
+  @Transform(({ obj }) => obj.image_url)
   @IsString()
   @IsNotEmpty()
   thumbnail: string;
 
   @Expose()
-  @Transform(({ value }) => value.offer_url)
+  @Transform(({ obj }) => obj.offer_url)
   @IsString()
   @IsNotEmpty()
   offerUrlTemplate: string;
 
   @Expose()
-  @Transform(({ value }) => (value.platform === 'desktop' ? 1 : 0))
+  @Transform(({ obj }) => (obj.platform === 'desktop' ? 1 : 0))
   @IsNumber()
   isDesktop: number;
 
   @Expose()
-  @Transform(({ value }) =>
-    value.device === 'iphone_ipad' ? 1 : value.platform === 'mobile' ? 1 : 0,
+  @Transform(({ obj }) =>
+    obj.device === 'iphone_ipad' ? 1 : obj.platform === 'mobile' ? 1 : 0,
   )
   @IsNumber()
   isIos: number;
 
   @Expose()
-  @Transform(({ value }) =>
-    value.device !== 'iphone_ipad' && value.platform === 'mobile' ? 1 : 0,
+  @Transform(({ obj }) =>
+    obj.device !== 'iphone_ipad' && obj.platform === 'mobile' ? 1 : 0,
   )
   @IsNumber()
   isAndroid: number;
