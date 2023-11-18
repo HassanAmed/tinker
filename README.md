@@ -1,7 +1,8 @@
 
 ## Description
-**Tinker** - job processor for offers 
-*What it does*
+**Tinker** - job processor for offers    
+
+**What it does**
 - uses offers payloads (to mimic http requests)
 - validate offers from different providers
 - transform them to a single entity
