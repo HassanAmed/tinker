@@ -1,12 +1,19 @@
-import { IsInt, IsNotEmpty, IsString, IsUrl } from 'class-validator';
+import {
+  IsIn,
+  IsInt,
+  IsNotEmpty,
+  IsString,
+  IsUrl,
+  Length,
+} from 'class-validator';
 
 class OfferDto {
   @IsString()
-  @IsNotEmpty()
+  @Length(1, 255)
   name: string;
 
   @IsString()
-  @IsNotEmpty()
+  @Length(1, 255)
   slug: string;
 
   @IsString()
@@ -18,25 +25,28 @@ class OfferDto {
   requirements: string;
 
   @IsUrl()
+  @Length(1, 255)
   thumbnail: string;
 
   @IsInt()
+  @IsIn([0, 1])
   isDesktop: number;
 
   @IsInt()
+  @IsIn([0, 1])
   isAndroid: number;
 
   @IsInt()
+  @IsIn([0, 1])
   isIos: number;
 
   @IsUrl()
+  @Length(1, 255)
   offerUrlTemplate: string;
 
-  @IsString()
-  providerName: string;
+  providerName: string | null;
 
-  @IsString()
-  externalOfferId: string;
+  externalOfferId: string | null;
 }
 
 export default OfferDto;

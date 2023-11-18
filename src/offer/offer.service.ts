@@ -1,7 +1,7 @@
 import { Injectable, Inject, Logger } from '@nestjs/common';
 import OfferDto from './dto/offer.dto';
 import IProvider from './providers/provider.interface';
-import { Offer } from './entities/offer.entity';
+import Offer from 'src/offer/entities/offer.entity';
 import Provider1 from './providers/provider1';
 import Provider2 from './providers/provider2';
 
@@ -11,39 +11,39 @@ export class OfferService {
   private readonly offerProviders: IProvider[];
 
   constructor(
-    @Inject('Provider1') p1: Provider1,
-    @Inject('Provider2') p2: Provider2,
+    @Inject('Provider1') private p1: Provider1,
+    @Inject('Provider2') private p2: Provider2,
   ) {
-    this.offerProviders = [p1, p2];
+    this.offerProviders = [this.p1, this.p2];
   }
 
   async processOffersJob() {
-    this.logger.log(this.offerProviders);
     if (!this.offerProviders.length) {
       throw new Error(`No providers available`);
     }
 
-    const OfferDtos: OfferDto[] = [];
+    const offerDtos: OfferDto[] = [];
     for (const provider of this.offerProviders) {
       const offers = provider.getOffers();
       for (const offer of offers) {
         try {
           await provider.validate(offer);
           const offerDto = provider.transform(offer);
-          OfferDtos.push(offerDto);
+          offerDtos.push(offerDto);
         } catch (e) {
           this.logger.warn(
-            `[WARN]: validation failed for offer ${offer.externalOfferId}}`,
+            `validation failed for offer ${offer?.externalOfferId}`,
           );
         }
       }
     }
-    this.OfferDtoToOffers(OfferDtos);
+    this.OfferDtoToOffers(offerDtos);
   }
 
   private OfferDtoToOffers(offerDtos: OfferDto[]) {
     const offers = offerDtos.map((offerDto) => {
       const offer = new Offer();
+
       offer.name = offerDto.name;
       offer.slug = offerDto.slug;
       offer.description = offerDto.description;
@@ -55,10 +55,12 @@ export class OfferService {
       offer.isIos = offerDto.isIos;
       offer.providerName = offerDto.providerName;
       offer.externalOfferId = offerDto.externalOfferId;
+
+      return offer;
     });
 
-    this.logger.log(` ${Object.keys(offers).length} Offers processed successfuly
-    OFFERS PROCESSED:
-    ${Object.values(offers)}`);
+    this.logger.log(`${Object.keys(offers).length} Offers processed successfuly
+    OFFERS PROCESSED: 
+    ${JSON.stringify(offers, null, 2)}`);
   }
 }

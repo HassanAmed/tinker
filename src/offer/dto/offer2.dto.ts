@@ -1,17 +1,13 @@
 import { Expose, Transform } from 'class-transformer';
 import OfferDto from './offer.dto';
-import {
-  IsNotEmpty,
-  IsNumber,
-  IsNumberString,
-  IsString,
-} from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class Offer2Dto {
   @Expose()
-  @Transform(({ obj }) => obj.Offer.campaign_id.toString())
-  @IsNumberString()
-  externalOfferId: string;
+  @Transform(({ obj }) =>
+    obj.Offer.campaign_id ? obj.Offer.campaign_id.toString() : null,
+  )
+  externalOfferId: string | null;
 
   @Expose()
   @Transform(({ obj }) => obj.Offer.name)
