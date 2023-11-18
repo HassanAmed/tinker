@@ -5,7 +5,6 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.createApplicationContext(AppModule);
-  const offerService = app.select(OfferModule).get(OfferService);
-  offerService.processOffersJob();
+  await app.select(OfferModule).get(OfferService).processOffersJob();
 }
 bootstrap();

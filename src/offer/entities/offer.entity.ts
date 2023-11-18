@@ -2,7 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 import IOffer from '../offer.interface';
 
 @Entity('offer')
-export class Offer implements IOffer {
+class Offer implements IOffer {
   // primary column for offer id
   @PrimaryGeneratedColumn()
   id: number;
@@ -64,3 +64,5 @@ export class Offer implements IOffer {
   })
   externalOfferId: string;
 }
+
+export default Offer;
